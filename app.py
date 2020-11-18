@@ -18,16 +18,19 @@ def dmart():
         columns=['Product_category', 'product_name', 'Product_o_price', 'product_d_price', 'p_brand'])
     product_url_try = product_url[:3]
     # headless chorme
-    chromedriver = 'chromedriver.exe'
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    #chromedriver = 'chromedriver.exe'
+    
     # options.add_argument('window-size=1200x600') # optional
-    browser = webdriver.Chrome(executable_path=chromedriver, chrome_options=options)
+    #browser = webdriver.Chrome(executable_path=chromedriver, chrome_options=options)
     # data scaping
     for url in product_url_try:
-        browser.get(url)
+        driver.get(url)
         time.sleep(8)  # 2 Sec for ssh
-        html = browser.execute_script("return document.documentElement.outerHTML")
+        html = driver.execute_script("return document.documentElement.outerHTML")
         soup = BeautifulSoup(html, 'html.parser')
         # print(soup)
         #print(url)
