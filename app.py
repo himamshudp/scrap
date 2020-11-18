@@ -12,7 +12,9 @@ from selenium import webdriver
 
 
 def dmart():
-    product_list = pd.read_csv(r'dmart_link.csv')
+    #product_list = pd.read_csv(r'dmart_link.csv')
+    product_list = ['https://www.dmart.in/product/premia-badam-american','https://www.dmart.in/product/chana--dal','https://www.dmart.in/product/nutraj-california-almonds-pdryfruitsntrj27xx111018']
+   
     product_url = product_list['link'].tolist()
     dmart_df = pd.DataFrame(
         columns=['Product_category', 'product_name', 'Product_o_price', 'product_d_price', 'p_brand'])
@@ -29,7 +31,7 @@ def dmart():
     # options.add_argument('window-size=1200x600') # optional
     #browser = webdriver.Chrome(executable_path=chromedriver, chrome_options=options)
     # data scaping
-    for url in product_url_try:
+    for url in product_list:
         driver.get(url)
         time.sleep(8)  # 2 Sec for ssh
         html = driver.execute_script("return document.documentElement.outerHTML")
@@ -97,12 +99,16 @@ def dmart():
         {'bags|tea-bags|pcs|pellets|drops|sachets|cubes|unit|pcnit|u': 'pc'}, regex=True)
     df_copy['app_Scale'] = df_copy['app_Scale'].replace({'litres': 'l'}, regex=True)
     df = df_copy
+    
     # Reading the standard ingredient list
-    df_col = pd.read_excel("dmart and bb combine data.xlsx", sheet_name='sorted list')
+    #df_col = pd.read_excel("dmart and bb combine data.xlsx", sheet_name='sorted list')
     # lowering the data to maintaing uniformity of dataset
-    df_col = df_col.apply(lambda x: x.astype(str).str.lower())
+    #df_col = df_col.apply(lambda x: x.astype(str).str.lower())
     # connverting data  columns to list for further processing
     prod_name_list_dmart = df["test_Product_name"].tolist()
+    sorted_name_list=['badam','almonds']
+    product_category_list=['t1','t2']   
+    
     sorted_name_list = df_col["sorted name"].tolist()
     product_category_list = df_col["Product_category"].tolist()
     # create app name from product names
@@ -158,7 +164,8 @@ def dmart():
     df['app_Weight'] = df.app_Weight.str.extract('(\d+)')
     df1 = df[['app_cat_dmart', 'app_brand', 'app_name_dmart', 'app_organic', 'App_Original_price', 'App_dmart_price',
               'app_Weight', 'app_Scale']]
-    df1.to_csv(r'Dmart_3.csv', index=False)
+    print(df1)
+    #df1.to_csv(r'Dmart_3.csv', index=False)
     #print("Dmart_3 created please check")
 dmart()
 
