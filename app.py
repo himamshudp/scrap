@@ -161,6 +161,5 @@ def dmart():
     df1.to_csv(r'Dmart_3.csv', index=False)
     #print("Dmart_3 created please check")
 
-dmart()
 
 
