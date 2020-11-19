@@ -83,7 +83,7 @@ def dmart():
     df_copy['weight'] = df_copy['product_name'].str.split(': ').str[1]
     df_copy['weight'] = df_copy['product_name'].str.split(' : ').str[1]
     df_copy['weight'] = df_copy['product_name'].str.split(':').str[1]
-    df_copy['app_Weight'] = df_copy['weight'].str.split('').str[1]
+    #df_copy['app_Weight'] = df_copy['weight'].str.split('').str[1]
     df_copy['app_Weight'] = df_copy['weight'].str.split(' ').str[1]
     df_copy['app_Weight'] = df_copy['app_Weight'].replace({'x': '*'}, regex=True)
     # create scale col from product name col
