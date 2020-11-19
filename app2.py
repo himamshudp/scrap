@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 # import shutil
 import time
 import os
-import json
+#import json
 import pandas as pd
 import warnings
 warnings.filterwarnings("ignore")
