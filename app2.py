@@ -12,11 +12,12 @@ from selenium import webdriver
 
 
 def dmart():
+    print("scrapping start")
     product_list = pd.read_csv(r'dmart_link.csv')
     product_url = product_list['link'].tolist()
     dmart_df = pd.DataFrame(
         columns=['Product_category', 'product_name', 'Product_o_price', 'product_d_price', 'p_brand'])
-    product_url_try = product_url[:3]
+    product_url_try = product_url[:5]
     # headless chorme
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
@@ -29,6 +30,7 @@ def dmart():
 
     for url in product_url_try:
         driver.get(url)
+        print("get urls")
         time.sleep(8)  # 2 Sec for ssh
         html = driver.execute_script("return document.documentElement.outerHTML")
         soup = BeautifulSoup(html, 'html.parser')
@@ -56,6 +58,7 @@ def dmart():
             p_brand.append(str(pb.text))
 
         # crete dictionary
+        print("creat dict")
 
         keys = ['Product_category', 'p_brand', 'product_name', 'Product_o_price', 'product_d_price']
         values = [p_category, p_brand, p_name, o_price, d_price]
@@ -146,6 +149,7 @@ def dmart():
             if i == j:
                 app_cat[i] = 'Null'
     # take max length words from list
+    print(" take max length")
     app_cat1 = []
     for name in app_cat:
         name1 = max((name for name in name if name), key=len)
