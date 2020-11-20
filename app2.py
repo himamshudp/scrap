@@ -160,12 +160,12 @@ def dmart():
     df['app_Weight'] = df.app_Weight.str.extract('(\d+)')
     df1 = df[['app_cat_dmart', 'app_brand', 'app_name_dmart', 'app_organic', 'App_Original_price', 'App_dmart_price',
               'app_Weight', 'app_Scale']]
-    df1.to_csv('Dmart_3.csv', index=False)
+    #df1.to_csv('Dmart_3.csv', index=False)
     print("pre check")
-    df.index+=1
+    df1.index+=1
     directory = os.path.dirname(os.path.realpath(__file__))
-    filename = "scrapedfile.csv"
+    filename = "Dmart_3i.csv"
     file_path = os.path.join(directory,'csvfiles/', filename)
-    df.to_csv(file_path)
+    df1.to_csv(file_path)
     print("Dmart_3 created please check")
     print(df1)
